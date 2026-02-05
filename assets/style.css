@@ -1,0 +1,131 @@
+body { font-family: 'Poppins', sans-serif; background-color: #f3f4f6; }
+
+/* Animasi Fade In */
+.fade-in { animation: fadeIn 0.5s ease-in-out; }
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+/* CSS KHUSUS CETAK (PRINT) */
+@media print {
+    .no-print { display: none !important; }
+    body { background-color: white; overflow: visible !important; }
+    
+    /* Layout Struk */
+    body.printing-struk > *:not(#struk-overlay) { display: none !important; }
+    body.printing-struk #struk-overlay { 
+        position: absolute; 
+        top: 0; left: 0; 
+        width: 100%; height: auto; 
+        background: white; 
+        z-index: 9999;
+        display: flex !important;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+    body.printing-struk #struk-box {
+        box-shadow: none !important;
+        border: none !important;
+        width: 100% !important;
+        max-width: 300px;
+    }
+    body.printing-struk .struk-actions { display: none !important; }
+}
+  *{ font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+  .glass { backdrop-filter: blur(14px); background: rgba(255,255,255,.72); }
+  .glass-dark { backdrop-filter: blur(14px); background: rgba(15,23,42,.55); }
+  .fade-in { animation: fadeIn .25s ease-out both; }
+  @keyframes fadeIn { from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)} }
+
+  ::-webkit-scrollbar{ width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb{ background: rgba(100,116,139,.35); border-radius: 999px; }
+  ::-webkit-scrollbar-track{ background: rgba(2,6,23,.04); }
+
+  /* ✅ PRINT SETUP */
+  @page { size: A4; margin: 12mm; }
+
+  @media print {
+    html, body { background: #fff !important; }
+    body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    .no-print { display: none !important; }
+
+    /* sembunyiin layout app */
+    #sidebar, #sidebar-overlay { display: none !important; }
+    header { display: none !important; }
+
+    /* biar tabel gak kepotong */
+    table { page-break-inside: auto; }
+    tr { page-break-inside: avoid; page-break-after: auto; }
+
+    /* hilangin shadow/border yang ganggu */
+    .shadow-2xl, .shadow-lg, .shadow-sm { box-shadow: none !important; }
+  }
+/* === Layout tombol laporan: Terapkan kiri, PDF atas + Reset bawah di kanan (tanpa ubah HTML) === */
+#laporan .flex.items-end.gap-2{
+  display: grid !important;
+  grid-template-columns: 1fr auto;   /* kiri fleksibel, kanan fixed */
+  grid-template-rows: auto auto;     /* 2 baris buat kanan */
+  column-gap: 10px;
+  row-gap: 10px;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Terapkan: ambil 2 baris di kolom kiri */
+#laporan .flex.items-end.gap-2 > button:nth-child(1){
+  grid-column: 1;
+  grid-row: 1 / span 2;   /* tinggi setara 2 tombol kanan */
+  min-width: 0;
+}
+
+/* Reset (button ke-2): taruh bawah kanan */
+#laporan .flex.items-end.gap-2 > button:nth-child(2){
+  grid-column: 2;
+  grid-row: 2;
+  width: 120px;           /* bisa lu gedein */
+  justify-content: center;
+}
+
+/* PDF (button ke-3): taruh atas kanan */
+#laporan .flex.items-end.gap-2 > button:nth-child(3){
+  grid-column: 2;
+  grid-row: 1;
+  width: 120px;
+  justify-content: center;
+}
+
+/* biar icon+text di center */
+#laporan .flex.items-end.gap-2 > button{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* kalau layar kecil banget, biar gak kepotong */
+@media (max-width: 420px){
+  #laporan .flex.items-end.gap-2 > button:nth-child(2),
+  #laporan .flex.items-end.gap-2 > button:nth-child(3){
+    width: 105px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+/* kecilin tulisan tombol filter laporan (Terapkan/PDF/Reset) */
+#laporan .flex.items-end.gap-2 > button{
+  font-size: 10px !important;     /* dari text-sm (14px) jadi 12px */
+  line-height: 1.1 !important;
+}
+
+/* kecilin icon dikit biar pas */
+#laporan .flex.items-end.gap-2 > button i{
+  font-size: 12px !important;
+}
+
+/* opsional: rapihin padding biar ga kegedean */
+#laporan .flex.items-end.gap-2 > button{
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
